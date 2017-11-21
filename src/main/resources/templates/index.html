@@ -3,10 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-    <link href="../styles/stylesheet.css" rel="stylesheet"/>
+    <link href="../webinf/styles/stylesheet.css" th:href="@{../webinf.styles/stylesheet.css}" rel="stylesheet"/>
 </head>
 
 <body>
+
 <ul>
     Alla toaletter
     <li th:each="toilet: ${allToilets}">
@@ -31,24 +32,14 @@
         <a th:text="${toilet.address}"/>
     </li>
 </ul>
-<div id="map" onclick="initMap()"></div>
-<script>
-    function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru
-        });
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
-    }
-</script>
-<script async="defer"
-        th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initMap}">
+
+<div id="map" onclick="initMap()"> </div>
+<script type="text/javascript" src="../webinf/javascript/mapBehaviour.js" th:src="@{mapBehaviour.js}"></script>
+<script async="async" defer="defer"
+    th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initMap}">
 </script>
 
+<!--<input type="button" onclick="reloadMap()">-->
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-function initMap() {
+initMap = function() {
     console.log("Tjena");
     var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -11,4 +11,6 @@ function initMap() {
     });
 }
 
-// type="text/javascript" src="../javascript/mapBehaviour.js"
+$(document).ready(function(){
+    initMap();
+})
