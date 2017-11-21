@@ -17,7 +17,10 @@ public class ToaController {
     @GetMapping ("/")
     public ModelAndView listToilets(){
         return new ModelAndView("index")
-                .addObject("toilets", toaRep.getToilets());
+                .addObject("allToilets", toaRep.getAllToilets())
+                .addObject("handicapToilets", toaRep.getHandicapToilets())
+                .addObject("changingTables", toaRep.getChangingTables())
+                .addObject("freeToilets", toaRep.getFreeToilets());
     }
 
 

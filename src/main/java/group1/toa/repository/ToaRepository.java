@@ -18,11 +18,11 @@ public class ToaRepository {
     @Autowired
     private DataSource dataSource;
 
-    public List<Toilet> getToilets() {
+    public List<Toilet> getToilets(String SQL) {
 
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets]")) {
+             ResultSet rs = stmt.executeQuery(SQL)) {
             List<Toilet> allToilets = new ArrayList<>();
 
             while (rs.next()) {
@@ -33,9 +33,7 @@ public class ToaRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
-
     }
 
     private Toilet rsToilet(ResultSet rs) throws SQLException {
@@ -50,4 +48,19 @@ public class ToaRepository {
                 rs.getString("Hours"));
     }
 
+    public List<Toilet> getAllToilets(){
+        return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets]");
+    }
+
+    public List<Toilet> getHandicapToilets(){
+        return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets] WHERE IsHandicap = 1");
+    }
+
+    public  List<Toilet> getChangingTables(){
+        return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets] WHERE HasChangingTable > 0");
+    }
+
+    public List<Toilet> getFreeToilets(){
+        return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets] WHERE MustPay = 0");
+    }
 }

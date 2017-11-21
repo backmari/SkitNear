@@ -9,10 +9,30 @@
     Här testar vi lite grann bara :)
 </h1>
 <ul>
-    <li th:each="toilet : ${toilets}">
+    Alla toaletter
+    <li th:each="toilet: ${allToilets}">
         <a th:text="${toilet.address}"/>
     </li>
 </ul>
+<ul>
+    Handikapp
+    <li th:each="toilet : ${handicapToilets}">
+        <a th:text="${toilet.address}"/>
+    </li>
+</ul>
+<ul>
+    Skötbord
+    <li th:each="toilet : ${changingTables}">
+        <a th:text="${toilet.address}"/>
+    </li>
+</ul>
+<ul>
+    Gratisar
+    <li th:each="toilet : ${freeToilets}">
+        <a th:text="${toilet.address}"/>
+    </li>
+</ul>
+
 
 </body>
 </html>
