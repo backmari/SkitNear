@@ -12,8 +12,6 @@ public class ToaController {
     @Autowired
     private ToaRepository toaRep;
 
-
-
     @GetMapping ("/")
     public ModelAndView listToilets(){
         return new ModelAndView("index")
@@ -22,7 +20,4 @@ public class ToaController {
                 .addObject("changingTables", toaRep.getChangingTables())
                 .addObject("freeToilets", toaRep.getFreeToilets());
     }
-
-
-
 }

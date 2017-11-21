@@ -3,11 +3,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
+    <link href="../styles/stylesheet.css" rel="stylesheet"/>
 </head>
+
 <body>
-<h1>
-    Här testar vi lite grann bara :)
-</h1>
 <ul>
     Alla toaletter
     <li th:each="toilet: ${allToilets}">
@@ -32,6 +31,23 @@
         <a th:text="${toilet.address}"/>
     </li>
 </ul>
+<div id="map" onclick="initMap()"></div>
+<script>
+    function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+</script>
+<script async="defer"
+        th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initMap}">
+</script>
 
 
 </body>
