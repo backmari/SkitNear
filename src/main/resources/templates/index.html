@@ -7,6 +7,22 @@
 </head>
 
 <body>
+<h1>
+    Här testar vi lite grann bara :)
+    <form action="post">
+        Skötbord
+        <input type="Checkbox" name="Skötbord"/>
+        Handikapp
+        <input type="Checkbox" name="Handikapp"/>
+        Gratis
+        <input type="Checkbox" name="Gratis"/>
+        Öppen
+        <input type="checkbox" name="Öppen"/>
+        <br>
+        <button type="submit">Hitta Holk</button>
+    </form>
+</h1>
+
 <ul>
     Alla toaletter
     <li th:each="toilet: ${allToilets}">
