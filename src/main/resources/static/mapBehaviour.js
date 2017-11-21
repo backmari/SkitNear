@@ -1,4 +1,4 @@
-initMap = function() {
+initmap = function(){
     console.log("Tjena");
     var uluru = {lat: -25.363, lng: 131.044};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -9,8 +9,4 @@ initMap = function() {
         position: uluru,
         map: map
     });
-}
-
-$(document).ready(function(){
-    initMap();
-})
+};

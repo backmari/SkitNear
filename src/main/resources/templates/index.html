@@ -3,25 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-    <link href="../webinf/styles/stylesheet.css" th:href="@{../webinf.styles/stylesheet.css}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
 </head>
 
 <body>
 
 <h1>
     Här testar vi lite grann bara :)
-    <form action="post">
-        Skötbord
-        <input type="Checkbox" name="HasChangningTable"/>
-        Handikapp
-        <input type="Checkbox" name="IsHandicap"/>
-        Gratis
-        <input type="Checkbox" name="MustPay"/>
-        Öppen
-        <input type="checkbox" name="Hours"/>
-        <br>
-        <button type="submit">Hitta Holk</button>
-    </form>
 </h1>
 
 <ul>
@@ -49,13 +37,10 @@
     </li>
 </ul>
 
-<div id="map" onclick="initMap()"> </div>
-<script type="text/javascript" src="../webinf/javascript/mapBehaviour.js" th:src="@{mapBehaviour.js}"></script>
-<script async="async" defer="defer"
-    th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initMap}">
-</script>
+<div id="map" ONLOAD="initMap()"></div>
+<script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo;callback=initMap"></script>
 
 <!--<input type="button" onclick="reloadMap()">-->
-
+<script type="text/javascript" src="/mapBehaviour.js"></script>
 </body>
 </html>
