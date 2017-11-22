@@ -17,11 +17,16 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="library" name="java-json.jar" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20171018" level="project" />
 =======
     <orderEntry type="library" scope="TEST" name="Maven: org.json:json:20140107" level="project" />
 >>>>>>> master
+=======
+    <orderEntry type="library" name="java-json.jar" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20171018" level="project" />
+>>>>>>> 6eab621a51efca7d105b0ff417b98ad90eebda54
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.4.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.4.0.RELEASE" level="project" />
