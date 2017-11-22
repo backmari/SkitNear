@@ -10,6 +10,21 @@
 
 <h1>
     Här testar vi lite grann bara :)
+    <form action="#" th:action="@{/}" method="post">
+        Skötbord
+        <input type="Checkbox" name="hasChangningTable"/>
+        Handikapp
+        <input type="Checkbox" name="isHandicap"/>
+        Gratis
+        <input type="Checkbox" name="isFree"/>
+        Öppen
+        <input type="checkbox" name="isOpen"/>
+        <!--hidden fields to submit user location-->
+        <input type="hidden" id="latitudeField" name="latitude"/>
+        <input type="hidden" id="longitudeField" name="longitude"/>
+        <br/>
+        <button type="submit">Hitta Holk</button>
+    </form>
 </h1>
 
 <ul>
@@ -37,6 +52,7 @@
     </li>
 </ul>
 
+<script src="/geoLocation.js"></script>
 <div id="map" ONLOAD="initmap()"></div>
 <script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initmap"></script>
 
