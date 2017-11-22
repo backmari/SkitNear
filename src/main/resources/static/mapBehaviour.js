@@ -8,7 +8,7 @@ window.onload = function () {
     function success(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
-
+        console.log(latitude + " " + longitude);
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
         map = new google.maps.Map(document.getElementById('map'), {
@@ -17,7 +17,7 @@ window.onload = function () {
         });
     }
 
-    function error() {
+    function error(output) {
         output.innerHTML = "Unable to retrieve your location"
     }
 
