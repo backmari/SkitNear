@@ -41,7 +41,8 @@ public class ToaController {
                                    @RequestParam (defaultValue = "false") boolean isOpen,
                                    @RequestParam String latitude,
                                    @RequestParam String longitude) {
-        System.out.println(latitude + " " + longitude);
+        List<Toilet> toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
+                hasChangingTable, isHandicap, isFree, isOpen);
         return new ModelAndView("index")
                 .addObject("allToilets", toaRep.getAllToilets())
                 .addObject("handicapToilets", toaRep.getHandicapToilets())
