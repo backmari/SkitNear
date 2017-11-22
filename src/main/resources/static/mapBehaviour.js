@@ -1,9 +1,15 @@
-window.onload = function () {
+window.onLoad = function () {
+
+    var cityCenter = {lat: 59.328977, lng: 18.068174};
+
+    var zoom = 10;
+
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: zoom,
+        center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng)
+    });
 
     navigator.geolocation.getCurrentPosition(success, error);
-    var map;
-    var cityCenter = {lat: 59.328977, lng: 18.068174};
-    var zoom = 10;
 
     function success(position) {
         var latitude = position.coords.latitude;
@@ -11,14 +17,13 @@ window.onload = function () {
         console.log(latitude + " " + longitude);
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: zoom,
-            center: {lat: latitude, lng: longitude}
-        });
+        map.setCenter(new google.maps.LatLng(latitude, longitude));
+
+
     }
 
     function error(output) {
-        output.innerHTML = "Unable to retrieve your location"
+        output.innerHTML = "Unable to retrieve your location";
     }
 
     //Send request to java to get JSON-array that contains all java-objects
