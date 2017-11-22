@@ -27,36 +27,36 @@
     </form>
 </h1>
 
-<ul>
-    Alla toaletter
-    <li th:each="toilet: ${allToilets}">
-        <a th:text="${toilet.address}"/>
-    </li>
-</ul>
-<ul>
-    Handikapp
-    <li th:each="toilet : ${handicapToilets}">
-        <a th:text="${toilet.address}"/>
-    </li>
-</ul>
-<ul>
-    Skötbord
-    <li th:each="toilet : ${changingTables}">
-        <a th:text="${toilet.address}"/>
-    </li>
-</ul>
-<ul>
-    Gratisar
-    <li th:each="toilet : ${freeToilets}">
-        <a th:text="${toilet.address}"/>
-    </li>
-</ul>
+<!--<ul>-->
+    <!--Alla toaletter-->
+    <!--<li th:each="toilet: ${allToilets}">-->
+        <!--<a th:text="${toilet.address}"/>-->
+    <!--</li>-->
+<!--</ul>-->
+<!--<ul>-->
+    <!--Handikapp-->
+    <!--<li th:each="toilet : ${handicapToilets}">-->
+        <!--<a th:text="${toilet.address}"/>-->
+    <!--</li>-->
+<!--</ul>-->
+<!--<ul>-->
+    <!--Skötbord-->
+    <!--<li th:each="toilet : ${changingTables}">-->
+        <!--<a th:text="${toilet.address}"/>-->
+    <!--</li>-->
+<!--</ul>-->
+<!--<ul>-->
+    <!--Gratisar-->
+    <!--<li th:each="toilet : ${freeToilets}">-->
+        <!--<a th:text="${toilet.address}"/>-->
+    <!--</li>-->
+<!--</ul>-->
 
-<script src="/geoLocation.js"></script>
-<div id="map" ONLOAD="initmap()"></div>
-<script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=initmap"></script>
+<!--<script src="/geoLocation.js"></script>-->
+<script async="async" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=onload"></script>
+<script type="text/javascript" src="/mapBehaviour.js"></script>
+<div id="map" ONLOAD="onload()"></div>
 
 <!--<input type="button" onclick="reloadMap()">-->
-<script type="text/javascript" src="/mapBehaviour.js"></script>
 </body>
 </html>

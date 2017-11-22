@@ -6,19 +6,20 @@ public class Toilet {
     private String address;
     private float latitude;
     private float longitude;
-    private int isHandicap;
+    private boolean isHandicap;
     private int hasChangingTable;
     private int mustPay;
+    private String hours;
 
     public Toilet(String index, String address, float latitude, float longitude, int isHandicap, int hasChangingTable, int mustPay, String hours) {
-        this.index = index;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.isHandicap = isHandicap;
-        this.hasChangingTable = hasChangingTable;
-        this.mustPay = mustPay;
-        this.hours = hours;
+        setIndex(index);
+        setAddress(address);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setIsHandicap(isHandicap);
+        setHasChangingTable(hasChangingTable);
+        setMustPay(mustPay);
+        setHours(hours);
     }
 
     public String getIndex() {
@@ -53,12 +54,13 @@ public class Toilet {
         this.longitude = longitude;
     }
 
-    public int getIsHandicap() {
+    public boolean isHandicap() {
         return isHandicap;
     }
 
     public void setIsHandicap(int isHandicap) {
-        this.isHandicap = isHandicap;
+        if(isHandicap > 0) this.isHandicap = true;
+        else this.isHandicap = false;
     }
 
     public int getHasChangingTable() {
@@ -85,5 +87,8 @@ public class Toilet {
         this.hours = hours;
     }
 
-    private String hours;
+//    private static float parseLatitude(){
+//
+//    }
+
 }
