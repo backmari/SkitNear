@@ -1,7 +1,5 @@
 function initMap() {
     var zoom = 10;
-
-
     var toilets = [
         {latitude: 59.32544622, longitud: 18.07585976 },
         {latitude: 59.3136511, longitud: 18.0589745 },
