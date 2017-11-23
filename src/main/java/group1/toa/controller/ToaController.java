@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,15 +19,17 @@ public class ToaController {
     @Autowired
     private ToaRepository toaRep;
 
+    private List<Toilet> toilets = new ArrayList<>();
+
     @GetMapping("/toilets")
     @ResponseBody
     public List<Toilet> scriptReq() {
-        List<Toilet> toilets = toaRep.getAllToilets();
         return toilets;
     }
 
     @GetMapping ("/")
     public ModelAndView listToilets(){
+        toilets = toaRep.getAllToilets();
         return new ModelAndView("index")
                 .addObject("allToilets", toaRep.getAllToilets())
                 .addObject("handicapToilets", toaRep.getHandicapToilets())
@@ -41,7 +44,7 @@ public class ToaController {
                                    @RequestParam (defaultValue = "false") boolean isOpen,
                                    @RequestParam String latitude,
                                    @RequestParam String longitude) {
-        List<Toilet> toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
+        toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
                 hasChangingTable, isHandicap, isFree, isOpen);
         return new ModelAndView("index")
                 .addObject("allToilets", toaRep.getAllToilets())
