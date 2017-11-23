@@ -1,13 +1,21 @@
 window.onLoad = function () {
 
     var cityCenter = {lat: 59.328977, lng: 18.068174};
-
+    var user = {lat: 59.328977, lng: 18.068174};
+    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var icons = {
+        library: {
+            icon: iconBase + 'library_maps.png'
+        }
+    };
     var zoom = 10;
 
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: zoom,
         center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng)
     });
+
+
 
     navigator.geolocation.getCurrentPosition(success, error);
 
@@ -18,9 +26,13 @@ window.onLoad = function () {
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
         map.setCenter(new google.maps.LatLng(latitude, longitude));
-
-
+        var anders = new google.maps.Marker({
+            position: {lat: latitude, lng: longitude},
+            icon: icons.library.icon,
+            map: map
+        });
     }
+
 
     function error(output) {
         output.innerHTML = "Unable to retrieve your location";
