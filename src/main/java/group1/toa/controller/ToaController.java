@@ -28,13 +28,13 @@ public class ToaController {
     }
 
     @GetMapping ("/")
-    public ModelAndView listToilets(){
+    public String listToilets(){
         toilets = toaRep.getAllToilets();
-        return new ModelAndView("index");
+        return "index";
     }
 
     @PostMapping(value="/", params="search")
-    public ModelAndView submitForm(@RequestParam (defaultValue = "false") boolean hasChangingTable,
+    public String submitForm(@RequestParam (defaultValue = "false") boolean hasChangingTable,
                                    @RequestParam (defaultValue = "false") boolean isHandicap,
                                    @RequestParam (defaultValue = "false") boolean isFree,
                                    @RequestParam (defaultValue = "false") boolean isOpen,
@@ -42,12 +42,12 @@ public class ToaController {
                                    @RequestParam String longitude) {
         toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
                 hasChangingTable, isHandicap, isFree, isOpen);
-        return new ModelAndView("index");
+        return "index";
     }
 
     @PostMapping(value="/", params="reset")
-    public ModelAndView resetForm() {
+    public String resetForm() {
         toilets = toaRep.getAllToilets();
-        return new ModelAndView("index");
+        return "index";
     }
 }
