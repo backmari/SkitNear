@@ -1,41 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css"/>
 </head>
 
 
 <body>
 
-<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-<h1>
-    Här testar vi lite grann bara :)
-    <form action="#" th:action="@{/}" method="post">
-        Skötbord
-        <input type="Checkbox" name="hasChangningTable"/>
-        Handikapp
-        <input type="Checkbox" name="isHandicap"/>
-        Gratis
-        <input type="Checkbox" name="isFree"/>
-        Öppen
-        <input type="checkbox" name="isOpen"/>
+    <div id="top">
+        <div id="img">
+            <img id="logo" src="/Fin_logo.png"/>
+        </div>
 
-        <!--hidden fields to submit user location-->
-        <input type="hidden" id="latitudeField" name="latitude"/>
-        <input type="hidden" id="longitudeField" name="longitude"/>
-        <br/>
-        <button type="submit" name="search">Hitta Holk</button>
-        <button type="submit" name="reset">Rensa</button>
-    </form>
-</h1>
+        <div>
+            <form action="#" th:action="@{/}" method="post">
+                <div class="checkbox custom">
+                    <input id="box" class="css-checkbox" type="checkbox" name="hasChangningTable"/>
+                    <label for="box" class="css-label"></label>
+                    Skötbord
+                </div>
 
-<script async="async" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=onLoad"></script>
-<script type="text/javascript" src="/mapBehaviour.js"></script>
-<div id="map" ONLOAD="window.onLoad()" ></div>
+                <div class="checkbox custom">
+                    <input id="box1" class="css-checkbox" type="checkbox" name="isHandicap"/>
+                    <label for="box1" class="css-label-red"></label>
+                    Handikapp
+                </div>
+
+                <div class="checkbox custom">
+                    <input id="box2" class="css-checkbox" type="checkbox" name="isFree"/>
+                    <label for="box2" class="css-label-yellow"></label>
+                    Gratis
+                </div>
+
+                <div class="checkbox custom">
+                    <input id="box3" class="css-checkbox" type="checkbox" name="isOpen"/>
+                    <label for="box3" class="css-label-blue"></label>
+                    Öppen
+                </div>
+
+                <input type="hidden" id="latitudeField" name="latitude"/>
+                <input type="hidden" id="longitudeField" name="longitude"/>
+                <button type="submit" name="search">Hitta Holk</button>
+                <button type="submit" name="reset">Rensa</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!--<div id="top">
+        <img id="logo" src="/skitnear_logo_trans.png"/>
+    </div>
+
+    <h1>
+        <form action="#" th:action="@{/}" method="post">
+            Skötbord
+            <input type="Checkbox" name="hasChangningTable"/>
+            Handikapp
+            <input type="Checkbox" name="isHandicap"/>
+            Gratis
+            <input type="Checkbox" name="isFree"/>
+            Öppen
+            <input type="checkbox" name="isOpen"/>
+
+            &lt;!&ndash;hidden fields to submit user location&ndash;&gt;
+            <input type="hidden" id="latitudeField" name="latitude"/>
+            <input type="hidden" id="longitudeField" name="longitude"/>
+            <br/>
+            <button type="submit" name="search">Hitta Holk</button>
+            <button type="submit" name="reset">Rensa</button>
+        </form>
+    </h1>-->
+
+    <script async="async" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP79F7cW3KeKNkxV8hZ2WCQEsXht7zyeo&amp;callback=onLoad"></script>
+    <script type="text/javascript" src="/mapBehaviour.js"></script>
+    <div id="map" ONLOAD="window.onLoad()" ></div>
 
 <!--<input type="button" onclick="reloadMap()">-->
 </body>
