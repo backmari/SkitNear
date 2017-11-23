@@ -28,6 +28,12 @@ button {
     border-radius: 10px;
 }
 
+.name {
+    margin-top: 5px;
+    width: 74px;
+    height: 40px;
+    text-align: center;
+}
 
 body {
     font-family: "helvetica";
