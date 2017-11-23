@@ -16,16 +16,22 @@ window.onLoad = function () {
     });
     var userCoords = {lat: 1, lng: 1};
 
-    var toiletList;
+    var toiletList = null;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
+
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
             toiletList = JSON.parse(xmlHttp.responseText);
             for (var i = 0; i < toiletList.length; i++) {
                 addMarker(toiletList[i], map);
             }
         }
+
     };
+    xmlHttp.open("GET", "/toilets", true); // true for asynchronous
+    xmlHttp.send(null);
+
 
     navigator.geolocation.getCurrentPosition(success, error);
 
@@ -53,12 +59,33 @@ window.onLoad = function () {
 
     var submitButton = document.getElementById("submit");
 
-    var inputListener = function(){
+    var inputListener = function () {
+        var form = document.getElementsByClassName("form");
+        var url = "/toilets?";
 
+        for (var i = 0; i < form.length - 1; i++) {
+            url = url + form[i].name + "=" + form[i].value + "&"; // SEND TO JAVA
+        }
+        url = url + form[form.length - 1].name + "=" + form[form.length - 1].value;
+        console.log(url);
+        xmlHttp.open("GET", url, true); // true for asynchronous
+        xmlHttp.send(null);
+
+        if (markers.length > 0) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+                markers[i].pop();
+            }
+
+            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                toiletList = JSON.parse(xmlHttp.responseText);
+                for (var i = 0; i < toiletList.length; i++) {
+                    addMarker(toiletList[i], map);
+                }
+            }
+        }
         var destinationToa = {lat: toiletList[0].latitude, lng: toiletList[0].longitude}
         var trip = {origin: userCoords, destination: destinationToa};
-        console.log(userCoords);
-        console.log(toiletList[0]);
         drawDirections(trip);
 
     };
@@ -69,13 +96,11 @@ window.onLoad = function () {
     console.log(userCoords.lat);
     console.log(userCoords.lng);
 
+
     function error(output) {
         output.innerHTML = "Unable to retrieve your location";
     }
-
-    xmlHttp.open("GET", "/toilets", true); // true for asynchronous
-    xmlHttp.send(null);
-
+    
     function addMarker(position, map) {
         new google.maps.Marker({
             position: {lat: position.latitude, lng: position.longitude},
