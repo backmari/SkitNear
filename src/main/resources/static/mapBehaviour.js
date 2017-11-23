@@ -18,8 +18,6 @@ window.onLoad = function () {
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
         map.setCenter(new google.maps.LatLng(latitude, longitude));
-
-
     }
 
     function error(output) {
@@ -28,8 +26,8 @@ window.onLoad = function () {
 
     //Send request to java to get JSON-array that contains all java-objects
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200){
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             var toiletList = JSON.parse(xmlHttp.responseText);
             if (!map) {
                 map = new google.maps.Map(document.getElementById('map'), {
@@ -49,45 +47,23 @@ window.onLoad = function () {
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
     xmlHttp.send(null);
 
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRequest = {
+        origin: "59.3136511,18.0589745",
+        destination: "59.3164926,18.0835784",
+        travelMode: google.maps.DirectionsTravelMode.WALKING,
+        unitSystem: google.maps.UnitSystem.METRIC
+    };
 
+    directionsService.route(directionsRequest, function (response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                console.log(response);
+            }
+            else {
+                //Error has occured
+                console.log("Nope, error stuff");
+            }
+        }
+    );
 };
 
-
-// region OldCode
-// function initMap() {
-//     var zoom = 10;
-//
-//     navigator.geolocation.getCurrentPosition(success, error);
-//
-//     function success(position) {
-//         window.userCoords = {lat: position.coords.latitude, lng: position.coords.longitude};
-//
-//         document.getElementById("latitudeField").value = window.userCoords.lat;
-//         document.getElementById("longitudeField").value = window.userCoords.lng;
-//     }
-//
-//     function error() {
-//         output.innerHTML = "Unable to retrieve your location";
-//     }
-//
-//     var toilets = [
-//         {latitude: 59.32544622, longitude: 18.07585976 },
-//         {latitude: 59.3136511, longitude: 18.0589745 },
-//         {latitude: 59.3164926, longitude: 18.0835784 },
-//         {latitude: 59.31573162, longitude: 18.08713373 },
-//         {latitude: 59.31172369, longitude: 18.09105638 }
-//     ];
-//     var map = new google.maps.Map(document.getElementById('map'), {
-//         zoom: zoom,
-//         center: userCoords
-//     });
-//
-//     for(var i = 0; i<toilets.length; i++){
-//         new google.maps.Marker({
-//             position: {lat: toilets[i].latitude, lng: toilets[i].longitude},
-//             map: map
-//         });
-//     }
-//
-// }
-// endregion

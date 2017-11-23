@@ -99,7 +99,7 @@ public class ToaRepository {
         HashMap<String, Double> topFive = new HashMap<>();
         for (Map.Entry<String, Double> entry : sortedDistMap.entrySet()) {
             topFive.put(entry.getKey(), entry.getValue());
-            if (++i > 5) {
+            if (++i > 4) {
                 break;
             }
         }
