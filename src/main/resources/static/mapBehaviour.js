@@ -11,11 +11,21 @@ window.onLoad = function () {
     var zoom = 10;
 
     var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: zoom,
-        center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng)
+        zoom: 10,
+        center: new google.maps.LatLng(cityCenter)
     });
+    var userCoords = {lat: 1, lng: 1};
 
-
+    var toiletList;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            toiletList = JSON.parse(xmlHttp.responseText);
+            for (var i = 0; i < toiletList.length; i++) {
+                addMarker(toiletList[i], map);
+            }
+        }
+    };
 
     navigator.geolocation.getCurrentPosition(success, error);
 
@@ -32,53 +42,76 @@ window.onLoad = function () {
             icon: icons.library.icon,
             map: map
         });
+        userCoords["lat"] = position.coords.latitude;
+        userCoords["lng"] = position.coords.longitude;
+        console.log(userCoords);
+        document.getElementById("latitudeField").value = userCoords.lat;
+        document.getElementById("longitudeField").value = userCoords.lng;
+        map.setCenter(userCoords);
+
     }
 
+    var submitButton = document.getElementById("submit");
+
+    var inputListener = function(){
+
+        var destinationToa = {lat: toiletList[0].latitude, lng: toiletList[0].longitude}
+        var trip = {origin: userCoords, destination: destinationToa};
+        console.log(userCoords);
+        console.log(toiletList[0]);
+        drawDirections(trip);
+
+    };
+
+    submitButton.addEventListener("click", inputListener);
+
+    console.log(userCoords);
+    console.log(userCoords.lat);
+    console.log(userCoords.lng);
 
     function error(output) {
         output.innerHTML = "Unable to retrieve your location";
     }
 
-    //Send request to java to get JSON-array that contains all java-objects
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-            var toiletList = JSON.parse(xmlHttp.responseText);
-            if (!map) {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: zoom,
-                    center: cityCenter
-                });
-            }
-
-            for (var i = 0; i < toiletList.length; i++) {
-                new google.maps.Marker({
-                    position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
-                    map: map
-                });
-            }
-        }
-    };
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
     xmlHttp.send(null);
 
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRequest = {
-        origin: "59.3136511,18.0589745",
-        destination: "59.3164926,18.0835784",
-        travelMode: google.maps.DirectionsTravelMode.WALKING,
-        unitSystem: google.maps.UnitSystem.METRIC
-    };
+    function addMarker(position, map) {
+        new google.maps.Marker({
+            position: {lat: position.latitude, lng: position.longitude},
+            map: map
+        });
+    }
 
-    directionsService.route(directionsRequest, function (response, status) {
+    function drawDirections(trip) {
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRequest = {
+            origin: new google.maps.LatLng(trip.origin),
+            destination: new google.maps.LatLng(trip.destination),
+            travelMode: google.maps.DirectionsTravelMode.WALKING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
+
+        directionsService.route(directionsRequest, function (response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
-                console.log(response);
+                var renderer = new google.maps.DirectionsRenderer();
+                renderer.setMap(map);
+                renderer.setDirections(response);
             }
             else {
                 //Error has occured
                 console.log("Nope, error stuff");
             }
-        }
-    );
+        });
+    }
+
+    function standardOptions() {
+        var options = {};
+        options["suppressMarkers"] = true;
+
+    }
+
+    function changeOption(element) {
+    }
 };
 
