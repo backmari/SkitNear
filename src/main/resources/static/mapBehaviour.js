@@ -1,14 +1,12 @@
 window.onLoad = function () {
 
     var cityCenter = {lat: 59.328977, lng: 18.068174};
-    var user = {lat: 59.328977, lng: 18.068174};
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var icons = {
         library: {
             icon: iconBase + 'library_maps.png'
         }
     };
-    var zoom = 10;
 
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
@@ -23,6 +21,7 @@ window.onLoad = function () {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
 
             toiletList = JSON.parse(xmlHttp.responseText);
+
             for (var i = 0; i < toiletList.length; i++) {
                 addMarker(toiletList[i], map);
             }
@@ -32,29 +31,24 @@ window.onLoad = function () {
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
     xmlHttp.send(null);
 
-
     navigator.geolocation.getCurrentPosition(success, error);
 
     function success(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        console.log(latitude + " " + longitude);
-        document.getElementById("latitudeField").value = latitude;
-        document.getElementById("longitudeField").value = longitude;
-        map.setCenter(new google.maps.LatLng(latitude, longitude));
-        
-        var userLoc = new google.maps.Marker({
-            position: {lat: latitude, lng: longitude},
-            icon: icons.library.icon,
-            map: map
-        });
+
+
         userCoords["lat"] = position.coords.latitude;
+
         userCoords["lng"] = position.coords.longitude;
         console.log(userCoords);
         document.getElementById("latitudeField").value = userCoords.lat;
         document.getElementById("longitudeField").value = userCoords.lng;
         map.setCenter(userCoords);
 
+        var userLoc = new google.maps.Marker({
+            position: userCoords,
+            icon: icons.library.icon,
+            map: map
+        });
     }
 
     var submitButton = document.getElementById("submit");
@@ -100,7 +94,7 @@ window.onLoad = function () {
     function error(output) {
         output.innerHTML = "Unable to retrieve your location";
     }
-    
+
     function addMarker(position, map) {
         new google.maps.Marker({
             position: {lat: position.latitude, lng: position.longitude},
@@ -108,6 +102,13 @@ window.onLoad = function () {
         });
     }
 
+    function addMarker(position, map) {
+        new google.maps.Marker({
+            position: {lat: position.latitude, lng: position.longitude},
+            map: map
+        });
+    }
+    
     function drawDirections(trip) {
         var directionsService = new google.maps.DirectionsService();
         var directionsRequest = {
@@ -130,13 +131,13 @@ window.onLoad = function () {
         });
     }
 
-    function standardOptions() {
-        var options = {};
-        options["suppressMarkers"] = true;
-
-    }
-
-    function changeOption(element) {
-    }
+    // function standardOptions() {
+    //     var options = {};
+    //     options["suppressMarkers"] = true;
+    //
+    // }
+    //
+    // function changeOption(element) {
+    // }
 };
 
