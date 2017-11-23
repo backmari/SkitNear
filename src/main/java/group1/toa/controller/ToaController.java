@@ -30,14 +30,10 @@ public class ToaController {
     @GetMapping ("/")
     public ModelAndView listToilets(){
         toilets = toaRep.getAllToilets();
-        return new ModelAndView("index")
-                .addObject("allToilets", toaRep.getAllToilets())
-                .addObject("handicapToilets", toaRep.getHandicapToilets())
-                .addObject("changingTables", toaRep.getChangingTables())
-                .addObject("freeToilets", toaRep.getFreeToilets());
+        return new ModelAndView("index");
     }
 
-    @PostMapping("/")
+    @PostMapping(value="/", params="search")
     public ModelAndView submitForm(@RequestParam (defaultValue = "false") boolean hasChangingTable,
                                    @RequestParam (defaultValue = "false") boolean isHandicap,
                                    @RequestParam (defaultValue = "false") boolean isFree,
@@ -46,10 +42,12 @@ public class ToaController {
                                    @RequestParam String longitude) {
         toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
                 hasChangingTable, isHandicap, isFree, isOpen);
-        return new ModelAndView("index")
-                .addObject("allToilets", toaRep.getAllToilets())
-                .addObject("handicapToilets", toaRep.getHandicapToilets())
-                .addObject("changingTables", toaRep.getChangingTables())
-                .addObject("freeToilets", toaRep.getFreeToilets());
+        return new ModelAndView("index");
+    }
+
+    @PostMapping(value="/", params="reset")
+    public ModelAndView resetForm() {
+        toilets = toaRep.getAllToilets();
+        return new ModelAndView("index");
     }
 }
