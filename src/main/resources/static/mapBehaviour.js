@@ -1,11 +1,13 @@
 window.onLoad = function () {
 
     var cityCenter = {lat: 59.328977, lng: 18.068174};
-    var user = {lat: 59.328977, lng: 18.068174};
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var iconBase = '/';
     var icons = {
-        library: {
-            icon: iconBase + 'library_maps.png'
+        user: {
+            icon: iconBase + 'user_marker_point.png'
+        },
+        toilet: {
+            icon: iconBase + 'Marker_point.png'
         }
     };
     var zoom = 10;
@@ -26,10 +28,10 @@ window.onLoad = function () {
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
         map.setCenter(new google.maps.LatLng(latitude, longitude));
-        
+
         var userLoc = new google.maps.Marker({
             position: {lat: latitude, lng: longitude},
-            icon: icons.library.icon,
+            icon: icons.user.icon,
             map: map
         });
     }
@@ -54,6 +56,7 @@ window.onLoad = function () {
             for (var i = 0; i < toiletList.length; i++) {
                 new google.maps.Marker({
                     position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
+                    icon: icons.toilet.icon,
                     map: map
                 });
             }
