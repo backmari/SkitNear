@@ -14,7 +14,136 @@ window.onLoad = function () {
 
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: zoom,
-        center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng)
+        center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng),
+        styles: [
+            {elementType: 'geometry', stylers: [{color: '#705018'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#000000'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#ffffff'}]},
+            
+            {
+                "featureType": "all",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#8f6e35"
+                    }
+                ]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "gamma": 0.01
+                    },
+                    {
+                        "lightness": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "saturation": -31
+                    },
+                    {
+                        "lightness": -33
+                    },
+                    {
+                        "weight": 2
+                    },
+                    {
+                        "gamma": 0.8
+                    }
+                ]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "lightness": 30
+                    },
+                    {
+                        "saturation": 30
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "saturation": 20
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "lightness": 20
+                    },
+                    {
+                        "saturation": -20
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "lightness": 10
+                    },
+                    {
+                        "saturation": -30
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "saturation": 25
+                    },
+                    {
+                        "lightness": 25
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "lightness": -20
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#f5fd3c"
+                    }
+                ]
+            }
+        ]
     });
 
 
@@ -64,8 +193,6 @@ window.onLoad = function () {
             }
         }
     };
-
-
 
 
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
