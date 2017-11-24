@@ -27,25 +27,38 @@ public class ToaController {
         return toilets;
     }
 
-    @GetMapping ("/")
-    public String listToilets(){
+    @GetMapping("/")
+    public String listToilets() {
         toilets = toaRep.getAllToilets();
         return "index";
     }
 
-    @PostMapping(value="/", params="search")
-    public String submitForm(@RequestParam (defaultValue = "false") boolean hasChangingTable,
-                                   @RequestParam (defaultValue = "false") boolean isHandicap,
-                                   @RequestParam (defaultValue = "false") boolean isFree,
-                                   @RequestParam (defaultValue = "false") boolean isOpen,
-                                   @RequestParam String latitude,
-                                   @RequestParam String longitude) {
+    @PostMapping(value = "/", params = "search")
+    public String submitForm(@RequestParam(defaultValue = "false") Boolean hasChangingTable,
+                             @RequestParam(defaultValue = "false") Boolean isHandicap,
+                             @RequestParam(defaultValue = "false") Boolean isFree,
+                             @RequestParam(defaultValue = "false") Boolean isOpen,
+                             @RequestParam String latitude,
+                             @RequestParam String longitude) {
         toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
                 hasChangingTable, isHandicap, isFree, isOpen);
         return "index";
     }
 
-    @PostMapping(value="/", params="reset")
+    @GetMapping(value = "/filter", params = "search")
+    @ResponseBody
+    public List<Toilet> getFiltered(@RequestParam(defaultValue = "false") String hasChangingTable,
+                                    @RequestParam(defaultValue = "false") String isHandicap,
+                                    @RequestParam(defaultValue = "false") String isFree,
+                                    @RequestParam(defaultValue = "false") String isOpen,
+                                    @RequestParam String latitude,
+                                    @RequestParam String longitude) {
+
+        return toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
+                Boolean.parseBoolean(hasChangingTable), Boolean.parseBoolean(isHandicap), Boolean.parseBoolean(isFree), Boolean.parseBoolean(isOpen));
+    }
+
+    @PostMapping(value = "/", params = "reset")
     public String resetForm() {
         toilets = toaRep.getAllToilets();
         return "index";

@@ -13,7 +13,7 @@ window.onLoad = function () {
         center: new google.maps.LatLng(cityCenter)
     });
     var userCoords = {lat: 1, lng: 1};
-
+    var markers = [];
     var toiletList = null;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -35,7 +35,6 @@ window.onLoad = function () {
 
     function success(position) {
 
-
         userCoords["lat"] = position.coords.latitude;
 
         userCoords["lng"] = position.coords.longitude;
@@ -54,32 +53,42 @@ window.onLoad = function () {
     var submitButton = document.getElementById("submit");
 
     var inputListener = function () {
-        var form = document.getElementsByClassName("form");
-        var url = "/toilets?";
-
-        for (var i = 0; i < form.length - 1; i++) {
-            url = url + form[i].name + "=" + form[i].value + "&"; // SEND TO JAVA
+        console.log(markers);
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+            markers.pop();
         }
-        url = url + form[form.length - 1].name + "=" + form[form.length - 1].value;
+        var form = document.getElementsByClassName("form");
+        var url = "/filter";
+        //
+        // for (i = 0; i < form.length; i++) {
+        //     var val = form[i].checked; // If value is text "on", set to true, if not, set false
+        //     url = url + form[i].name + "=" + val + "&"; // SEND TO JAVA
+        // }
+        // url = url + form[form.length - 1].name + "=" + form[form.length - 1].value;
+
+        // if(userCoords.lat != 1){
+        //     url = url + "latitude" + "=" + userCoords.lat + "&" + "longitude" + "=" + userCoords.lng;
+        // }
+
         console.log(url);
-        xmlHttp.open("GET", url, true); // true for asynchronous
-        xmlHttp.send(null);
 
         if (markers.length > 0) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-                markers[i].pop();
-            }
 
             if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
                 toiletList = JSON.parse(xmlHttp.responseText);
-                for (var i = 0; i < toiletList.length; i++) {
+                for (i = 0; i < toiletList.length; i++) {
                     addMarker(toiletList[i], map);
                 }
             }
         }
+
+        xmlHttp.open("GET", url, true); // true for asynchronous
+        xmlHttp.send(null);
+
         var destinationToa = {lat: toiletList[0].latitude, lng: toiletList[0].longitude}
         var trip = {origin: userCoords, destination: destinationToa};
+
         drawDirections(trip);
 
     };
@@ -96,20 +105,18 @@ window.onLoad = function () {
     }
 
     function addMarker(position, map) {
-        new google.maps.Marker({
+        markers.push(new google.maps.Marker({
             position: {lat: position.latitude, lng: position.longitude},
             map: map
-        });
+        }));
     }
 
-    function addMarker(position, map) {
-        new google.maps.Marker({
-            position: {lat: position.latitude, lng: position.longitude},
-            map: map
-        });
-    }
-    
+    var renderer;
+
     function drawDirections(trip) {
+        var rendererOptions = {
+            map: map
+        };
         var directionsService = new google.maps.DirectionsService();
         var directionsRequest = {
             origin: new google.maps.LatLng(trip.origin),
@@ -120,7 +127,11 @@ window.onLoad = function () {
 
         directionsService.route(directionsRequest, function (response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
-                var renderer = new google.maps.DirectionsRenderer();
+                if (renderer != null) {
+                    renderer.setMap(null);
+                    renderer = null;
+                }
+                renderer = new google.maps.DirectionsRenderer(rendererOptions);
                 renderer.setMap(map);
                 renderer.setDirections(response);
             }
@@ -130,14 +141,5 @@ window.onLoad = function () {
             }
         });
     }
-
-    // function standardOptions() {
-    //     var options = {};
-    //     options["suppressMarkers"] = true;
-    //
-    // }
-    //
-    // function changeOption(element) {
-    // }
 };
 
