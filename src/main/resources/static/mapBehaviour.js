@@ -1,11 +1,13 @@
 window.onLoad = function () {
 
     var cityCenter = {lat: 59.328977, lng: 18.068174};
-    var user = {lat: 59.328977, lng: 18.068174};
-    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var iconBase = '/';
     var icons = {
-        library: {
-            icon: iconBase + 'library_maps.png'
+        user: {
+            icon: iconBase + 'user_marker_point.png'
+        },
+        toilet: {
+            icon: iconBase + 'Marker_point.png'
         }
     };
     var zoom = 10;
@@ -14,7 +16,6 @@ window.onLoad = function () {
         zoom: zoom,
         center: new google.maps.LatLng(cityCenter.lat, cityCenter.lng)
     });
-
 
 
     navigator.geolocation.getCurrentPosition(success, error);
@@ -26,10 +27,10 @@ window.onLoad = function () {
         document.getElementById("latitudeField").value = latitude;
         document.getElementById("longitudeField").value = longitude;
         map.setCenter(new google.maps.LatLng(latitude, longitude));
-        
+
         var userLoc = new google.maps.Marker({
             position: {lat: latitude, lng: longitude},
-            icon: icons.library.icon,
+            icon: icons.user.icon,
             map: map
         });
     }
@@ -39,6 +40,8 @@ window.onLoad = function () {
         output.innerHTML = "Unable to retrieve your location";
     }
 
+    var markers = [];
+    var infoWindows = [];
     //Send request to java to get JSON-array that contains all java-objects
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -50,15 +53,21 @@ window.onLoad = function () {
                     center: cityCenter
                 });
             }
-
             for (var i = 0; i < toiletList.length; i++) {
-                new google.maps.Marker({
-                    position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
-                    map: map
-                });
+                markers.push(
+                    new google.maps.Marker({
+                        position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
+                        icon: icons.toilet.icon,
+                        map: map,
+                        title: toiletList[i].address
+                    }))
             }
         }
     };
+
+
+
+
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
     xmlHttp.send(null);
 
