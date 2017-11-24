@@ -19,7 +19,6 @@ window.onLoad = function () {
             {elementType: 'geometry', stylers: [{color: '#705018'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#000000'}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#ffffff'}]},
-            
             {
                 "featureType": "all",
                 "elementType": "geometry",
