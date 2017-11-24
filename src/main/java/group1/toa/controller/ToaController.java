@@ -59,9 +59,9 @@ public class ToaController {
         List<Toilet> toilets = (List<Toilet>) session.getAttribute("toilets");
         if (toilets == null) {
             toilets = new ArrayList<>();
-            session.setAttribute("toilets", toilets);
         }
         toilets = toaRep.getAllToilets();
+        session.setAttribute("toilets", toilets);
         return "index";
     }
 }
