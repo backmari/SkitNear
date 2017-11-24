@@ -18,7 +18,6 @@ window.onLoad = function () {
     });
 
 
-
     navigator.geolocation.getCurrentPosition(success, error);
 
     function success(position) {
@@ -41,6 +40,8 @@ window.onLoad = function () {
         output.innerHTML = "Unable to retrieve your location";
     }
 
+    var markers = [];
+    var infoWindows = [];
     //Send request to java to get JSON-array that contains all java-objects
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
@@ -52,16 +53,21 @@ window.onLoad = function () {
                     center: cityCenter
                 });
             }
-
             for (var i = 0; i < toiletList.length; i++) {
-                new google.maps.Marker({
-                    position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
-                    icon: icons.toilet.icon,
-                    map: map
-                });
+                markers.push(
+                    new google.maps.Marker({
+                        position: {lat: toiletList[i].latitude, lng: toiletList[i].longitude},
+                        icon: icons.toilet.icon,
+                        map: map,
+                        title: toiletList[i].address
+                    }))
             }
         }
     };
+
+
+
+
     xmlHttp.open("GET", "/toilets", true); // true for asynchronous
     xmlHttp.send(null);
 
