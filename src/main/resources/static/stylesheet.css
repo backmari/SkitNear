@@ -1,10 +1,11 @@
 #map {
-    height: 700px;
+    height: 550px;
     width: 100%;
+
 }
 
 #top {
-    margin: auto;
+    margin-bottom: 20px;
     padding: 0;
     width: auto;
     height: 200px;
@@ -37,7 +38,8 @@ button {
 
 body {
     font-family: "helvetica";
-    background-color: #ff08082c;
+    background-color: #8a6a32;
+    opacity: 1;
 }
 
 .checkbox.custom {
@@ -100,17 +102,17 @@ input[type=checkbox].css-checkbox:checked+label.css-label-blue {
 }
 
 .css-label {
-    background-image: url(/checkbox_inte_ful_trots_aram.png);
+    background-image: url(/checkbox_finGul.png);
 }
 
 .css-label-red {
-    background-image: url(/checkbox_inte_ful_trots_aram.png);
+    background-image: url(/checkbox_finGul.png);
 }
 
 .css-label-yellow {
-    background-image: url(/checkbox_inte_ful_trots_aram.png);
+    background-image: url(/checkbox_finGul.png);
 }
 
 .css-label-blue {
-    background-image: url(/checkbox_inte_ful_trots_aram.png);
+    background-image: url(/checkbox_finGul.png);
 }
