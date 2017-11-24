@@ -1,5 +1,5 @@
 #map {
-    height: 550px;
+    height: 692px;
     width: 100%;
 
 }
@@ -23,6 +23,7 @@
 }
 
 button {
+    background-color: #f5fd3c;
     margin-top: 100px;
     margin-left: 50px;
     padding: 10px 50px 10px 50px;
