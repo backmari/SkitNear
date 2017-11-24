@@ -52,7 +52,7 @@ public class ToaRepository {
         return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets]");
     }
 
-    public List<Toilet> getHandicapToilets() {
+    /*public List<Toilet> getHandicapToilets() {
         return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets] WHERE IsHandicap = 1");
     }
 
@@ -62,7 +62,7 @@ public class ToaRepository {
 
     public List<Toilet> getFreeToilets() {
         return getToilets("SELECT * FROM [Academy_Projekt1].[dbo].[PublicToilets] WHERE MustPay = 0");
-    }
+    }*/
 
     public List<Toilet> getFiveClosestToilets(double userLat, double userLng, boolean hasChangingTable,
                                               boolean isHandicap, boolean isFree, boolean isOpen) {

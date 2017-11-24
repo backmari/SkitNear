@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +20,20 @@ public class ToaController {
     @Autowired
     private ToaRepository toaRep;
 
-    private List<Toilet> toilets = new ArrayList<>();
+    //private List<Toilet> toilets = new ArrayList<>();
 
     @GetMapping("/toilets")
     @ResponseBody
-    public List<Toilet> scriptReq() {
+    public List<Toilet> scriptReq(HttpSession session) {
+        List<Toilet> toilets = (List<Toilet>) session.getAttribute("toilets");
+
         return toilets;
     }
 
     @GetMapping ("/")
-    public String listToilets(){
-        toilets = toaRep.getAllToilets();
+    public String listToilets(HttpSession session){
+        List<Toilet> toilets = toaRep.getAllToilets();
+        session.setAttribute("toilets", toilets);
         return "index";
     }
 
@@ -39,15 +43,25 @@ public class ToaController {
                                    @RequestParam (defaultValue = "false") boolean isFree,
                                    @RequestParam (defaultValue = "false") boolean isOpen,
                                    @RequestParam String latitude,
-                                   @RequestParam String longitude) {
+                                   @RequestParam String longitude, HttpSession session) {
+        List<Toilet> toilets = (List<Toilet>) session.getAttribute("toilets");
+        if (toilets == null) {
+            toilets = new ArrayList<>();
+        }
         toilets = toaRep.getFiveClosestToilets(Double.parseDouble(latitude), Double.parseDouble(longitude),
                 hasChangingTable, isHandicap, isFree, isOpen);
+        session.setAttribute("toilets", toilets);
         return "index";
     }
 
     @PostMapping(value="/", params="reset")
-    public String resetForm() {
+    public String resetForm(HttpSession session) {
+        List<Toilet> toilets = (List<Toilet>) session.getAttribute("toilets");
+        if (toilets == null) {
+            toilets = new ArrayList<>();
+        }
         toilets = toaRep.getAllToilets();
+        session.setAttribute("toilets", toilets);
         return "index";
     }
 }
